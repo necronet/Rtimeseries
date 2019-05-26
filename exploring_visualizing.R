@@ -1,4 +1,5 @@
 library(fpp2)
+library(datasets)
 
 # Autoplotting
 autoplot(a10)
@@ -21,7 +22,16 @@ ggsubseriesplot(beer)
 
 # Autocorrelation of non-seasonal time series
 autoplot(oil)
-
-
 gglagplot(oil,lags=9)
+
+ggAcf(oil,lags=9)
+
+
+autoplot(sunspot.year)
+ggAcf(sunspot.year)
+
+autoplot(hyndsight, xlab="Weeks")
+ggAcf(hyndsight)
+
+
 
