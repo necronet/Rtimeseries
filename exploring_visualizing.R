@@ -34,4 +34,12 @@ autoplot(hyndsight, xlab="Weeks")
 ggAcf(hyndsight)
 
 
+# White noise 
+autoplot(goog)
+
+autoplot(diff(goog))
+
+ggAcf(diff(goog))
+
+Box.test(diff(goog), lag = 10, type = "Ljung")
 
