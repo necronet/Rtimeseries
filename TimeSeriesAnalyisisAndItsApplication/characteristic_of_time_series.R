@@ -7,6 +7,11 @@ plot(jj, type="o", ylab="Quaterly Earning per share")
 plot(globtemp, type="o", ylab="Global temperature deviations")
 plot(speech)
 
+# SOI and fish population, El nino effect
+par(mfrow=c(2,1))
+plot(soi, ylab="", xlab="", main="Southern Oscilation Index")
+plot(rec, ylab="", xlab="", main="Recruitment")
+
 # Moving average is referred generically as filtered series
 w = rnorm(500, 0 ,1)
 #Side value of 2 means is going to be centered around lag 0 
@@ -73,7 +78,29 @@ acf(y3, lag.max=4, plot=FALSE)
 ( (sum( (y1[-1]-mean(y1)) * (y1[-10]-mean(y1)) ))/9 )/var(y1)
 (sum( (y1-mean(y1))^2 )/9 )/var(y1)
 
+# Speech ACF
+acf(speech, 250)
 
+
+# SOI and fish population, ACF and CCF analysis
+par(mfrow=c(3,1))
+acf(soi, 48, main="Southern Oscilation Index")
+acf(rec, 48, main="Recruitment")
+ccf(soi, rec, 48, main="SOI vs recruitment", ylab="CCF")
+
+# Prewhitening and cross corelation analysis
+set.seed(1492)
+num=120; t=1:num
+X = ts(2*cos(2*pi*t/12) + rnorm(num), freq=12)
+Y = ts(2*cos(2*pi*(t+5)/12) + rnorm(num), freq=12)
+Yw = resid(lm( Y~cos(2*pi*t/12) + sin(2*pi*t/12)), na.action=NULL)
+
+par(mfrow=c(3,2), mgp=c(1.6, .6, 0), mar=c(3, 3, 1, 1) )
+plot(X); plot(Y)
+acf(X, 48, ylab="ACF(X)")
+acf(Y, 48, ylab="ACF(Y)")
+ccf(X, Y, 24, ylab="CCF X vs Y")
+ccf(X, ts(Yw, freq=12), 24, ylab="CCF X vs Y", ylim=c(-.6,.6))
 
 
 
