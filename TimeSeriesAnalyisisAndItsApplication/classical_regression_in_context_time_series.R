@@ -76,5 +76,17 @@ par(fig=c(.75, 1, .75, 1), new=TRUE)
 nwgts = c(rep(0,20), wgts, rep(0,20))
 plot(nwgts, type="l", ylim=c(-.02, .1), xaxt='n', yaxt='n', ann=FALSE)
 
+# Kernel smoothing for time sereis Nadayara kernel
+plot(soi)
+lines(ksmooth(time(soi), soi, "normal", bandwidth = 1), lwd=2, col=4)
+par(fig=c(.50,1,.50,1), new=TRUE)
+gauss <- function(x) { 1/sqrt(2*pi) * exp( -(x^2)/2) }
+x = seq(from=-3, to=3, by=0.001)
+plot(x, gauss(x), type='l', ylim = c(-.02, .45), xaxt='n', yaxt='n', ann=FALSE)
 
+
+# Lowess smoother for el Nino
+plot(soi)
+lines(lowess(soi, f=.05), lwd=2, col=4)
+lines(lowess(soi), lty=2, lwd=2, col=2)
 
