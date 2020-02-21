@@ -16,3 +16,4 @@ plot( arima.sim(list(order=c(0,0,1), ma=.9), n =100), ylab="X", main= expression
 plot( arima.sim(list(order=c(0,0,1), ma=-.9), n =100), ylab="X", main= expression(MA(1)~~~theta==-.9) )
 
 
+
