@@ -90,3 +90,42 @@ xx = c(-9:0,0:-9); yy = c(L, rev(U))
 polygon(xx, yy, border=8, col = gray(.6, alpha=.2))
 lines(-9:0, nx[1:10], type='o', col=2)
 
+
+# ARIMA model example
+
+plot(gnp)
+acf2(gnp, 50)
+gnpgr = diff(log(gnp))
+plot(gnpgr)
+acf2(gnpgr, 24)
+sarima(gnpgr, 1, 0 , 0)
+dev.new()
+sarima(gnpgr, 0, 0 , 2)
+#prints psi weight
+ARMAtoMA(ar=.35, ma = 0, 10)
+
+
+ts.plot(varve)
+sarima(log(varve),0,1,1, no.constant=TRUE)
+sarima(log(varve),1,1,1, no.constant=TRUE)
+
+
+set.seed(666)
+phi = c(rep(0,11),.9)
+sAR = arima.sim(list(order=c(12,0,0), ar=phi), n =37)
+sAR = ts(sAR, freq=12)
+layout(matrix(c(1,1,2,1,1,3), nc=2))
+par(mar=c(3,3,2,1), mgp=c(1.6,.6,0))
+plot(sAR, axes=FALSE, main ="Seasonal AR(1)", xlab="year", type='c')
+Months = c('J','F','M','A','M','J','J','A','S','O','N','D')
+points(sAR, pch=Months, cex=1.25, font=4, col=1:4)
+axis(1,1:4); abline(v=1:4, lty=2, col=gray(.7))
+axis(2); box()
+
+ACF = ARMAacf(ar=phi, ma=0, 100)
+PACF = ARMAacf(ar=phi, ma=0, 100, pacf = TRUE)
+plot(ACF, type='h', xlab='LAG', ylim=c(-.1,1)); abline(h=0)
+plot(PACF, type='h', xlab='LAG', ylim=c(-.1,1)); abline(h=0)
+
+
+
