@@ -101,7 +101,11 @@ e2 <- tsCV(qcement, snaive, h = 4)
 mean(e1^2, na.rm = TRUE)
 mean(e2^2, na.rm = TRUE)
 
-# Copy the best forecast MSE
-bestmse <- e1
 
+
+# When does ETS does not work well
+autoplot(lynx)
+fit <- ets(lynx)
+summary(fit)
+fit %>% forecast(h = 20) %>% autoplot()
 
