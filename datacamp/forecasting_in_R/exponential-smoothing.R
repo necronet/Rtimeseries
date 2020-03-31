@@ -1,3 +1,7 @@
+library(dplyr)
+library(forecast)
+library(fpp2)
+
 # Based on: https://campus.datacamp.com/courses/forecasting-in-r/exponential-smoothing?ex=2
 # Exponential Smoothing 
 
